@@ -17,7 +17,7 @@ app.add_middleware(
 username = os.getenv('MONGO_USERNAME')
 password = os.getenv('MONGO_PASSWORD')
 db = os.getenv('MONGO_DB')
-print(username, password, db)
+
 database = MongoConnect(username=username,
                         password=password, db=db)
 
