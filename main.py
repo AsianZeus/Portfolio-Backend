@@ -1,6 +1,5 @@
 from fastapi import FastAPI, status, HTTPException
 from utils import *
-from config import *
 from connectDatabase import MongoConnect
 from fastapi.middleware.cors import CORSMiddleware
 import os
