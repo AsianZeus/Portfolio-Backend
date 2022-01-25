@@ -17,6 +17,7 @@ class MongoConnect:
             self.Projects_c = self.db["Projects"]
             self.Publications_c = self.db["Publications"]
             self.Skills_c = self.db["Skills"]
+            print("Connected to MongoDB!")
         except Exception as e:
             print("Unable to connect to the database!", e)
 
