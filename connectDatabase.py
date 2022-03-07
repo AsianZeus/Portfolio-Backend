@@ -65,7 +65,8 @@ class MongoConnect:
 
     def get_skills(self):
         skills = self.Skills_c.find(projection={"_id": 0})
-        skills = sort_skills(skills.sort('Name'))
+        skills = [ skill for skill in skills.sort('Name') ]
+        skills = sort_skills(skills)
         return skills
 
     def get_experiences(self):
