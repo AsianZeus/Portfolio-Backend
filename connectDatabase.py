@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 import wikipedia
-
+from utils import sort_skills
 
 class MongoConnect:
 
@@ -65,7 +65,7 @@ class MongoConnect:
 
     def get_skills(self):
         skills = self.Skills_c.find(projection={"_id": 0})
-        skills = [i for i in skills]
+        skills = sort_skills(skills.sort('Name'))
         return skills
 
     def get_experiences(self):
@@ -85,6 +85,7 @@ class MongoConnect:
 
     def get_projects(self):
         projects = self.Projects_c.find(projection={"_id": 0})
+        projects = projects.sort('Date.End_Date', -1)
         projects = [i for i in projects]
         return projects
 

@@ -109,3 +109,17 @@ class Certification(BaseModel):
     Issuing_Date: date
     _normalize_date = validator(
         "Issuing_Date", allow_reuse=True)(date2datetime)
+
+def sort_skills(skillz):
+    order = ['Language',
+    'Framework',
+    'Cloud Services',
+    'Database',
+    'IDE',
+    'Operating System']
+    skills = []
+    for i in range(len(order)):
+        for skill in skillz:
+            if skill['Type'] == order[i]:
+                skills.append(skill)
+    return skills
