@@ -82,6 +82,8 @@ class Publication(BaseModel):
     Publishing_URL: HttpUrl
     Abstract: str
     Publishing_Date: date
+    Institute_Logo: Optional[str]
+    Citation: str
     _normalize_date = validator(
         "Publishing_Date", allow_reuse=True)(date2datetime)
 
