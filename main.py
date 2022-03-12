@@ -6,9 +6,16 @@ import os
 
 app = FastAPI()
 
+origins = [
+    "http://www.akshatsurolia.com",
+    "https://www.akshatsurolia.com",
+    "http://akshatsurolia.com",
+    "https://akshatsurolia.com",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
