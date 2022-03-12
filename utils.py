@@ -15,6 +15,10 @@ class Address(BaseModel):
     Pincode: Optional[str]
     Country: str
 
+class Request(BaseModel):
+    Name: str
+    Email: str
+    Message: str
 
 class Social(BaseModel):
     Website: Optional[HttpUrl]

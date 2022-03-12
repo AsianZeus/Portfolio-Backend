@@ -26,11 +26,22 @@ database = MongoConnect(username=username,
 def root():
     return "Welcome to Akshat's Portfolio"
 
+@app.get("/request")
+def get_requests():
+    requests = database.get_requests()
+    if not requests:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="requests not found")
+    return {"request": requests}
 
 @app.get("/all")
 def get_all():
     return database.get_all()
 
+@app.post("/request", status_code=status.HTTP_201_CREATED)
+def request(payload: Request):
+    res = database.insert_request(payload.dict(exclude_unset=True))
+    return {"created_id": res.inserted_id.__str__()}
 
 @app.post("/personal_info", status_code=status.HTTP_201_CREATED)
 def personal_info(payload: Personal_Info):

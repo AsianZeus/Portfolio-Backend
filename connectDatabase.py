@@ -17,6 +17,7 @@ class MongoConnect:
             self.Projects_c = self.db["Projects"]
             self.Publications_c = self.db["Publications"]
             self.Skills_c = self.db["Skills"]
+            self.Request_c = self.db["Request"]
             print("Connected to MongoDB!")
         except Exception as e:
             print("Unable to connect to the database!", e)
@@ -27,6 +28,10 @@ class MongoConnect:
             return True
         except Exception:
             return False
+
+    def insert_request(self, payload):
+        res = self.Request_c.insert_one(payload)
+        return res
 
     def insert_personal_info(self, payload):
         res = self.Personal_Info_c.insert_one(payload)
@@ -57,6 +62,11 @@ class MongoConnect:
     def insert_publications(self, payload):
         res = self.Publications_c.insert_one(payload)
         return res
+
+    def get_requests(self):
+        requests = self.Request_c.find(projection={"_id": 0})
+        requests = [i for i in requests]
+        return requests
 
     def get_personal_info(self):
         personal_info = self.Personal_Info_c.find(projection={"_id": 0})
