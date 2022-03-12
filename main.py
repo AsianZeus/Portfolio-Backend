@@ -35,21 +35,21 @@ def root():
     return "Welcome to Akshat's Portfolio"
 
 @app.get("/requests")
-def get_requests(origin: str = Header(None), key: str = Header(None)):
+def get_requests():
     requests = database.get_requests()
     if not requests:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="requests not found")
-    return {"request": requests, "origin":origin, "key":key}
+    return {"request": requests}
 
 @app.get("/all")
 def get_all():
     return database.get_all()
 
 @app.post("/requests", status_code=status.HTTP_201_CREATED)
-def request(payload: Request):
+def request(payload: Request, origin: str = Header(None), key: str = Header(None)):
     res = database.insert_request(payload.dict(exclude_unset=True))
-    return {"created_id": res.inserted_id.__str__()}
+    return {"created_id": res.inserted_id.__str__(), "origin":origin, "key":key}
 
 @app.post("/personal_info", status_code=status.HTTP_201_CREATED)
 def personal_info(payload: Personal_Info):
