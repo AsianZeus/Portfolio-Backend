@@ -58,7 +58,7 @@ def get_all(origin: str = Header(None), key: str = Header(None)):
 def request(payload: Request, origin: str = Header(None), key: str = Header(None)):
     if origin in origins and key == SECRET_KEY:
         res = database.insert_request(payload.dict(exclude_unset=True))
-        return {"created_id": res.inserted_id.__str__(), "origin":origin, "key":key}
+        return {"created_id": res.inserted_id.__str__()}
     else:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN, detail="Invalid Origin or Key")
