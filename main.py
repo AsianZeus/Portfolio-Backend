@@ -36,12 +36,11 @@ def root():
 
 @app.get("/requests")
 def get_requests(origin: str = Header(None), key: str = Header(None)):
-    print(origin,key)
     requests = database.get_requests()
     if not requests:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="requests not found")
-    return {"request": requests}
+    return {"request": requests, "origin":origin, "key":key}
 
 @app.get("/all")
 def get_all():
