@@ -1,4 +1,4 @@
-from fastapi import FastAPI, status, HTTPException
+from fastapi import FastAPI, status, HTTPException, Header
 from utils import *
 from connectDatabase import MongoConnect
 from fastapi.middleware.cors import CORSMiddleware
@@ -24,6 +24,7 @@ app.add_middleware(
 username = os.getenv('MONGO_USERNAME')
 password = os.getenv('MONGO_PASSWORD')
 db = os.getenv('MONGO_DB')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 database = MongoConnect(username=username,
                         password=password, db=db)
@@ -34,7 +35,8 @@ def root():
     return "Welcome to Akshat's Portfolio"
 
 @app.get("/requests")
-def get_requests():
+def get_requests(origin: str = Header(None), key: str = Header(None)):
+    print(origin,key)
     requests = database.get_requests()
     if not requests:
         raise HTTPException(
