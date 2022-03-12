@@ -26,7 +26,7 @@ database = MongoConnect(username=username,
 def root():
     return "Welcome to Akshat's Portfolio"
 
-@app.get("/request")
+@app.get("/requests")
 def get_requests():
     requests = database.get_requests()
     if not requests:
@@ -38,7 +38,7 @@ def get_requests():
 def get_all():
     return database.get_all()
 
-@app.post("/request", status_code=status.HTTP_201_CREATED)
+@app.post("/requests", status_code=status.HTTP_201_CREATED)
 def request(payload: Request):
     res = database.insert_request(payload.dict(exclude_unset=True))
     return {"created_id": res.inserted_id.__str__()}
